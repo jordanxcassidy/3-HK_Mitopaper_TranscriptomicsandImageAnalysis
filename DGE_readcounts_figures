@@ -1,0 +1,137 @@
+# Set up
+install.packages("BiocManager")
+#insert 2 data sets manually_ transcript counts on excel via read in  
+quant_data <- transcript_count_matrix
+quant_data_old <- transcript_count_matrix1
+
+rownames(quant_data) <- quant_data$transcript_id
+#quant_data_old <- read.csv("transcript_count_matrix1.csv", header = TRUE)
+rownames(quant_data_old) <- quant_data_old$transcript_id
+#quant_data_old <- quant_data_old[,c(1,2,3,4)]
+quant_data_old <- quant_data_old[c(quant_data$transcript_id),]
+quant_data <- cbind(quant_data,quant_data_old)
+quant_data <- quant_data[,-18]
+quant_data$transcript_id <- gsub("\\|.*", "", quant_data$transcript_id)
+quant_data <- quant_data[, colnames(quant_data) != "E3"] #remove extra steps
+quant_data <- quant_data[, colnames(quant_data) != "E3a"]
+
+# Add Experiment Design Info
+myDesign <- data.frame(
+  sampleID = colnames(quant_data)[-1],
+  condition = c( "low", "low", "low", "low", "control", "control", "control", "control", "high", "high", "extra", "extra", "extra", "extra", "high", "high", "high"))
+myDesign$batch <- factor(c('a','a','a','a','a','a','a', 'a' ,'a','a', 'a','a','a','a', 'b','b','b'))
+myDesign$batch1 <- factor(c('1','1','2','2','1','1','2', '2' ,'2','2', '1','1','2','2', '3','4','5'))
+head(quant_data)
+colnames(quant_data)
+
+
+#cleaning/tidying data
+# printing original rownames of data frame 
+rownames <- rownames(myDesign) 
+print (rownames) 
+
+# changing row names of data frame 
+rownames(myDesign) <- myDesign$sampleID
+
+rownames(quant_data) <- quant_data$transcript_id
+quant_data <- quant_data[, rownames(myDesign)]
+colnames(myDesign)
+#quant_data <- quant_data[, "gene_id"]
+#quant_data <- quant_data[, -1]
+
+rownames(myDesign)
+
+all(rownames(myDesign) == colnames(quant_data))
+
+all(rownames(myDesign) %in% colnames(quant_data))
+
+if (!require("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+#BiocManager::install(version = "3.16")
+BiocManager::install(c("GenomicFeatures", "AnnotationDbi"))
+#R.version
+
+BiocManager::install("genefilter")
+BiocManager::install("DESeq2")
+#??DESeq2
+#browseVignettes("DESeq2")
+#make deseq2 dataset
+library("DESeq2")
+
+dds <- DESeqDataSetFromMatrix(countData = quant_data,
+                              colData = myDesign,
+                              design = ~ batch + condition)
+dds
+
+#This command allow you to filter out the low read counts, the NA results and 0 results. So you take just the one you want to keep and store
+#them into the "keep" vector. 
+
+smallestGroupSize <- 3
+keep <- rowSums(counts(dds) >= 10) >= smallestGroupSize
+dds <- dds[keep,]
+all(rownames(myDesign) %in% colnames(quant_data))
+
+#To run the differential expression genes analysis and save the data in a vector (dds.E)
+dds.E<-DESeq(dds)
+res <- results(dds.E)
+res
+
+resOrdered <- res[order(res$pvalue),]
+summary(res)
+sum(res$padj < 0.1, na.rm=TRUE)
+
+# cooks plot
+par(mar=c(8,5,2,2))
+boxplot(log10(assays(dds.E)[["cooks"]]), range=0, las=2)
+
+#transform for pca visualisation
+vsd <- vst(dds.E, blind=FALSE)
+rld <- rlog(dds.E, blind=FALSE)
+head(assay(vsd), 3)
+
+ntd <- normTransform(dds.E)
+BiocManager::install("limma")
+library("limma")
+#limma batch effect removed
+assay(vsd)<-removeBatchEffect(assay(vsd), vsd$batch)
+
+library("ggplot2")
+
+#plotCounts(ntd, gene="NM_001310339", intgroup="condition")
+BiocManager::install("edgeR")
+library("edgeR")
+
+plotCounts(dds,gene ="NM_001278463",intgroup ="condition")
+#geom_boxplot(plotCounts(dds,gene ="NM_001278463",intgroup ="condition")) 
+
+NM_001278463 <- plotCounts(dds, gene="NM_001278463", intgroup="condition", 
+                           returnData=TRUE)
+
+NM_001310339 <- plotCounts(dds, gene="NM_001310339", intgroup="condition", 
+                           returnData=TRUE)
+
+## figures for paper 
+Plot_gene <- function(x, name){
+  data=plotCounts(dds, gene = x, intgroup = 'condition', returnData = T)
+  p=ggplot(data, aes(x=factor(condition, levels = c('control', 'low', 'high', 'extra')), y=count, fill=factor(condition, levels = c('control', 'low', 'high', 'extra'))))+
+    ggtitle(paste0(x, ' - ', name))+
+    geom_boxplot()+
+    ylab('Normalised expression')+
+    # Change labs here
+    scale_x_discrete(labels= c('0', '0.1', '1','10')) +
+    # Custom colours here
+    scale_fill_manual(values = c('gray40','#FF6A6A','#4876FF','#DBDBDB'))+
+    xlab('3-HK (µM)')+
+    geom_point(size = 3)+
+    theme_minimal()+
+    theme(legend.position = 'none', title = element_text(size = 12), axis.text = element_text(size=10))
+  return(p)
+}
+
+Plot_gene('NM_001278463', 'DNM1L')
+Plot_gene('NM_002693', 'POLG')
+Plot_gene('NM_012237', 'SIRT2')
+Plot_gene('NM_001003788', 'STRADA')
+
+##
+
