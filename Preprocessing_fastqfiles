@@ -1,0 +1,199 @@
+Transcriptomics Quantification october 2024
+
+/scratch/evassvis/jc871/run2/
+
+HISAT
+
+wget http://igenomes.illumina.com.s3-website-us-east-1.amazonaws.com/Homo_sapiens/UCSC/hg38/Homo_sapiens_UCSC_hg38.tar.gz
+
+tar -xvzf Homo_sapiens_UCSC_hg38.tar.gz
+
+module load hisat2/2.2.1
+
+hisat2-build -p 16 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/Homo_sapiens/UCSC/hg38/Sequence/WholeGenomeFasta/genome.fa genome_HG38
+
+#gunzip Homo_sapiens.GRCh38.cdna.all.fa.gz
+
+#module load hisat2/2.2.1
+
+#hisat2-build -p 16 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/Homo_sapiens.GRCh38.cdna.all.fa HG38_genome
+
+#alignment;control (C, 0)
+# 1st done manually (in X204SC24086896-Z01-F001) rest sent off to que
+
+#hisat2 -p 4 --dta -x genome_HG38 -1 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/C1/C1_EKRN240051895-1A_22GY3HLT4_L5_1.fq.gz -2 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/C1/C1_EKRN240051895-1A_22GY3HLT4_L5_2.fq.gz -S C1.sam
+
+hisat2 -p 4 --dta -x genome_HG38 -1 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/C2/C2_EKRN240051896-1A_22GY3HLT4_L5_1.fq.gz -2 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/C2/C2_EKRN240051896-1A_22GY3HLT4_L5_2.fq.gz -S C2.sam
+
+hisat2 -p 4 --dta -x genome_HG38 -1 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/C3/C3_EKRN240051897-1A_22GY3HLT4_L5_1.fq.gz -2 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/C3/C3_EKRN240051897-1A_22GY3HLT4_L5_2.fq.gz -S C3.sam
+
+hisat2 -p 4 --dta -x genome_HG38 -1 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/C4/C4_EKRN240051898-1A_22GY3HLT4_L5_1.fq.gz -2 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/C4/C4_EKRN240051898-1A_22GY3HLT4_L5_2.fq.gz -S C4.sam
+
+#B (0.1)
+
+hisat2 -p 4 --dta -x genome_HG38 -1 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/B1/B1_EKRN240051899-1A_22GY3HLT4_L5_1.fq.gz -2 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/B1/B1_EKRN240051899-1A_22GY3HLT4_L5_2.fq.gz -S B1.sam
+
+hisat2 -p 4 --dta -x genome_HG38 -1 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/B2/B2_EKRN240051900-1A_22GY3HLT4_L5_1.fq.gz -2 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/B2/B2_EKRN240051900-1A_22GY3HLT4_L5_2.fq.gz -S B2.sam
+
+hisat2 -p 4 --dta -x genome_HG38 -1 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/B3/B3_EKRN240051901-1A_22GY3HLT4_L5_1.fq.gz -2 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/B3/B3_EKRN240051901-1A_22GY3HLT4_L5_2.fq.gz -S B3.sam
+
+hisat2 -p 4 --dta -x genome_HG38 -1 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/B4/B4_EKRN240051902-1A_22GY3HLT4_L7_1.fq.gz -2 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/B4/B4_EKRN240051902-1A_22GY3HLT4_L7_2.fq.gz -S B4.sam
+
+#D (1)
+
+hisat2 -p 4 --dta -x genome_HG38 -1 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/D1/D1_EKRN240051903-1A_22GY3HLT4_L5_1.fq.gz -2 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/D1/D1_EKRN240051903-1A_22GY3HLT4_L5_2.fq.gz -S D1.sam
+
+hisat2 -p 4 --dta -x genome_HG38 -1 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/D2/D2_EKRN240051904-1A_22GY3HLT4_L5_1.fq.gz -2 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/D2/D2_EKRN240051904-1A_22GY3HLT4_L5_2.fq.gz -S D2.sam
+
+
+#E (10)
+
+hisat2 -p 4 --dta -x genome_HG38 -1 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/E1/E1_EKRN240051905-1A_22GY3HLT4_L7_1.fq.gz -2 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/E1/E1_EKRN240051905-1A_22GY3HLT4_L7_2.fq.gz -S E1.sam
+
+hisat2 -p 4 --dta -x genome_HG38 -1 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/E2/E2_EKRN240051906-1A_22GY3HLT4_L5_1.fq.gz -2 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/E2/E2_EKRN240051906-1A_22GY3HLT4_L5_2.fq.gz -S E2.sam
+
+hisat2 -p 4 --dta -x genome_HG38 -1 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/E3/E3_EKRN240051907-1A_22GCJFLT4_L1_1.fq.gz -2 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/E3/E3_EKRN240051907-1A_22GCJFLT4_L1_2.fq.gz -S E3.sam
+
+hisat2 -p 4 --dta -x genome_HG38 -1 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/E3/E3_EKRN240051907-1A_22GF3CLT4_L7_1.fq.gz -2 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/E3/E3_EKRN240051907-1A_22GF3CLT4_L7_2.fq.gz -S E3a.sam
+
+hisat2 -p 4 --dta -x genome_HG38 -1 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/E4/E4_EKRN240051908-1A_22GY3HLT4_L5_1.fq.gz -2 /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/01.RawData/E4/E4_EKRN240051908-1A_22GY3HLT4_L5_2.fq.gz -S E4.sam
+
+#alignment sam/bam
+
+module load samtools/1.18
+
+#convert sam to bam using 'view'
+
+samtools view --threads 8  -b C1.sam -o C1.bam
+samtools view --threads 8  -b C2.sam -o C2.bam
+samtools view --threads 8  -b C3.sam -o C3.bam
+samtools view --threads 8  -b C4.sam -o C4.bam
+
+samtools view --threads 8  -b B1.sam -o B1.bam
+samtools view --threads 8  -b B2.sam -o B2.bam
+samtools view --threads 8  -b B3.sam -o B3.bam
+samtools view --threads 8  -b B4.sam -o B4.bam
+
+samtools view --threads 8  -b D1.sam -o D1.bam
+samtools view --threads 8  -b D2.sam -o D2.bam
+
+samtools view --threads 8  -b E1.sam -o E1.bam
+samtools view --threads 8  -b E2.sam -o E2.bam
+samtools view --threads 8  -b E3.sam -o E3.bam
+samtools view --threads 8  -b E3a.sam -o E3a.bam
+samtools view --threads 8  -b E4.sam -o E4.bam
+
+#sort the bam files
+
+samtools sort C1.bam -o C1.sorted.bam
+samtools sort C2.bam -o C2.sorted.bam
+samtools sort C3.bam -o C3.sorted.bam
+
+samtools sort B1.bam -o B1.sorted.bam
+samtools sort B2.bam -o B2.sorted.bam
+samtools sort B3.bam -o B3.sorted.bam
+
+samtools sort B4.bam -o B4.sorted.bam
+samtools sort C4.bam -o C4.sorted.bam
+samtools sort E1.bam -o E1.sorted.bam
+
+samtools sort E2.bam -o E2.sorted.bam
+samtools sort E3.bam -o E3.sorted.bam
+samtools sort E3a.bam -o E3a.sorted.bam
+samtools sort E4.bam -o E4.sorted.bam
+samtools sort D1.bam -o D1.sorted.bam
+samtools sort D2.bam -o D2.sorted.bam
+
+#index the sorted bam files
+
+samtools index B1.sorted.bam
+samtools index B2.sorted.bam
+samtools index B3.sorted.bam
+samtools index C1.sorted.bam
+samtools index C2.sorted.bam
+samtools index C3.sorted.bam
+samtools index D1.sorted.bam
+samtools index D2.sorted.bam
+samtools index B4.sorted.bam
+samtools index C4.sorted.bam
+samtools index E1.sorted.bam
+samtools index E2.sorted.bam
+samtools index E3.sorted.bam
+samtools index E3a.sorted.bam
+samtools index E4.sorted.bam
+
+samtools merge E3b.sorted.bam E3.sorted.bam E3a.sorted.bam
+
+#Stringtie
+
+#(X204SC24086896-Z01-F001)
+
+#get genome annotation file (gff)
+
+#wget https://ftp.ensembl.org/pub/current_gff3/homo_sapiens/Homo_sapiens.GRCh38.112.gff3.gz
+
+#gzip -d Homo_sapiens.GRCh38.112.gff3.gz
+
+module load stringtie/2.2.1
+
+stringtie C1.sorted.bam -B -G  /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/Homo_sapiens/UCSC/hg38/Annotation/Genes/genes.gtf  -e -o C1.transcripts.gtf -A C1_gene_abund.tab
+stringtie C2.sorted.bam -B -G  /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/Homo_sapiens/UCSC/hg38/Annotation/Genes/genes.gtf -e -o C2.transcripts.gtf -A C2_gene_abund.tab
+stringtie C3.sorted.bam -B -G  /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/Homo_sapiens/UCSC/hg38/Annotation/Genes/genes.gtf -e -o C3.transcripts.gtf -A C3_gene_abund.tab
+stringtie C4.sorted.bam -B -G  /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/Homo_sapiens/UCSC/hg38/Annotation/Genes/genes.gtf -e -o C4.transcripts.gtf -A C4_gene_abund.tab
+stringtie B1.sorted.bam -B -G  /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/Homo_sapiens/UCSC/hg38/Annotation/Genes/genes.gtf -e -o B1.transcripts.gtf -A B1_gene_abund.tab
+stringtie B2.sorted.bam -B -G  /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/Homo_sapiens/UCSC/hg38/Annotation/Genes/genes.gtf -e -o B2.transcripts.gtf -A B2_gene_abund.tab
+stringtie B3.sorted.bam -B -G  /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/Homo_sapiens/UCSC/hg38/Annotation/Genes/genes.gtf -e -o B3.transcripts.gtf -A B3_gene_abund.tab
+stringtie B4.sorted.bam -B -G  /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/Homo_sapiens/UCSC/hg38/Annotation/Genes/genes.gtf -e -o B4.transcripts.gtf -A B4_gene_abund.tab
+stringtie D1.sorted.bam -B -G  /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/Homo_sapiens/UCSC/hg38/Annotation/Genes/genes.gtf -e -o D1.transcripts.gtf -A D1_gene_abund.tab
+stringtie D2.sorted.bam -B -G  /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/Homo_sapiens/UCSC/hg38/Annotation/Genes/genes.gtf -e -o D2.transcripts.gtf -A D2_gene_abund.tab
+stringtie E1.sorted.bam -B -G  /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/Homo_sapiens/UCSC/hg38/Annotation/Genes/genes.gtf -e -o E1.transcripts.gtf -A E1_gene_abund.tab
+stringtie E2.sorted.bam -B -G  /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/Homo_sapiens/UCSC/hg38/Annotation/Genes/genes.gtf -e -o E2.transcripts.gtf -A E2_gene_abund.tab
+stringtie E3b.sorted.bam -B -G  /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/Homo_sapiens/UCSC/hg38/Annotation/Genes/genes.gtf -e -o E3.transcripts.gtf -A E3_gene_abund.tab
+stringtie E4.sorted.bam -B -G  /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/Homo_sapiens/UCSC/hg38/Annotation/Genes/genes.gtf -e -o E4.transcripts.gtf -A E4_gene_abund.tab
+
+#old files to add
+
+stringtie x13_1.sorted.bam -B -G  /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/Homo_sapiens/UCSC/hg38/Annotation/Genes/genes.gtf  -e -o x13_1.transcripts.gtf -A x13_1_gene_abund.tab
+
+stringtie 13_2.sorted.bam -B -G  /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/Homo_sapiens/UCSC/hg38/Annotation/Genes/genes.gtf -e -o 13_2.transcripts.gtf -A 13_2_gene_abund.tab
+
+stringtie x13_3.sorted.bam -B -G  /scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/Homo_sapiens/UCSC/hg38/Annotation/Genes/genes.gtf -e -o x13_3.transcripts.gtf -A x13_3_gene_abund.tab
+
+#sample_list.txt
+
+(in X204SC24012378-Z01-F002) 
+mkdir sample_list
+cd sample_list
+
+C1	/scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/C1.transcripts.gtf
+C2	/scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/C2.transcripts.gtf
+C3	/scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/C3.transcripts.gtf
+C4	/scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/C4.transcripts.gtf
+B1	/scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/B1.transcripts.gtf
+B2	/scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/B2.transcripts.gtf
+B3	/scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/B3.transcripts.gtf
+B4	/scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/B4.transcripts.gtf
+E1	/scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/E1.transcripts.gtf
+E2	/scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/E2.transcripts.gtf
+E3	/scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/E3.transcripts.gtf
+E3b	/scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/E3b.transcripts.gtf
+E4	/scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/E4.transcripts.gtf
+D1	/scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/D1.transcripts.gtf
+D2	/scratch/evassvis/jc871/run2/X204SC24086896-Z01-F001/D2.transcripts.gtf
+
+#use python script to combine info from all samples in the sample list
+# in X204SC24012378-Z01-F002
+
+#prep output for R with prepDE.py3 python script (github)
+#use python script to combine info from all samples to gene and transcript abundances
+# in Seq2
+#put all gtf files with a file of their own sample (e.g the script will look for the gtf file in the 2nd path down from pwd Seq2-->Samplename-->gtffile)
+
+module load python3
+
+python prepDE.py3 -i ./ -v
+
+#extract_transcriptname_genename.sh
+tar -xvzf Homo_sapiens_UCSC_hg38.tar.gz
+grep '>' |
+awk '{FS= " "}BEGIN{ print "TXNAME,GENEID"};{print substr($1,2) "," substr($4,6)};' > tx2gene.UCSC_hg38.csv
