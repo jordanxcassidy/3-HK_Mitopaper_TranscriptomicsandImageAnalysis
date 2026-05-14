@@ -3,3 +3,4 @@ PE150. 20M reads.
 fastq files processed to get count matrix (preprocessing_fastqfiles) and count matrix used as input for DGE.
 Figures for publication script in DGE_readcounts_figures.  
 DGE_volcanoes not used for figures in publication 
+FIJI macros used in paper for mitoSOX staining and mito morphology analysis (2d+3d)
