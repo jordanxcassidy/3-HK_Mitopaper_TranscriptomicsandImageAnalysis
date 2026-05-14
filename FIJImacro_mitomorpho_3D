@@ -1,0 +1,4 @@
+#use 2d macro first then play this 
+run("Clear Outside", "stack");
+run("3D Objects Counter", "threshold=108 slice=25 min.=10 max.=2257700 exclude_objects_on_edges objects");
+run("Particle Analysis 3D", "volume surface sphericity surface_0=[Crofton (13 dirs.)] euler_0=C26");
