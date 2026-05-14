@@ -1,0 +1,11 @@
+run("Subtract Background...", "rolling=10 stack");
+run("Sigma Filter Plus", "radius=1 use=2 minimum=0.2 outlier stack");
+run("Enhance Local Contrast (CLAHE)", "blocksize=108 histogram=256 maximum=1.25 mask=*None* fast_(less_accurate)");
+run("Gamma...", "value=1 stack");
+setOption("ScaleConversions", true);
+run("8-bit");
+run("Auto Local Threshold", "method=Bernsen radius=15 parameter_1=0 parameter_2=0 white stack");
+run("Despeckle", "stack");
+run("Remove Outliers...", "radius=2 threshold=50 which=Bright stack");
+run("Z Project...", "projection=[Max Intensity]");
+run("Analyze Particles...", "summarize");
